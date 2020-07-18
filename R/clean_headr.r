@@ -1,4 +1,4 @@
-#' @title Turn column names and first row names into column names
+#' @title clean_headr
 #'
 #' @description
 #' This function was made to clean SurveyMonkey's "double header", which contains column names and sub-column names found in the first row
@@ -6,12 +6,10 @@
 #' @param dat a data.frame
 #' @param rep_val repeated value as a character class. When your column names repeat, what is the repeated value. (Common cases are "X" for .csv imports or "..." for .xlsx imports)
 #'
-#'
-#'
 #' @return a data.frame with one less row
-#' @export
-#' @examples
 #'
+#' @export
+
 
 
 .onAttach <- function(libname, pkgname) {
