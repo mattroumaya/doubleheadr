@@ -12,11 +12,6 @@
 #' @export
 #' @examples
 #'
-#' mtcars %>%
-#'   tabyl(am, cyl) %>%
-#'   adorn_percentages("col") %>%
-#'   adorn_pct_formatting() %>%
-#'   adorn_ns(position = "front")
 
 
 .onAttach <- function(libname, pkgname) {
