@@ -29,7 +29,7 @@ clean_headr <- function(dat, rep_val, clean_names = TRUE){
   orig <- orig[-c(1),]
 
   if (clean_names %in% TRUE){
-    orig <- clean_names(orig)
+    orig <- janitor::clean_names(orig)
   }
 
   return(orig)
