@@ -32,6 +32,10 @@ clean_headr <- function(dat, rep_val, clean_names = TRUE){
     orig <- janitor::clean_names(orig)
   }
 
+  if (!clean_names %in% c(TRUE, FALSE)){
+    ui_warn("clean_names accepts two values: TRUE or FALSE")
+  }
+
   return(orig)
 
 }
