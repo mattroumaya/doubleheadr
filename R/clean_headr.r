@@ -9,7 +9,7 @@
 #' @return a data.frame with one less row
 #'
 #' @export
-clean_headr <- function(dat, rep_val){
+clean_headr <- function(dat, rep_val, clean_names = TRUE){
 
   orig <- dat
 
@@ -26,5 +26,11 @@ clean_headr <- function(dat, rep_val){
   new_names <- as.character(sv$new_value)
   colnames(orig)[which(colnames(orig) %in% sv$name)] <- sv$new_value
   orig <- orig[-c(1),]
+
+  if (clean_names %in% TRUE){
+    orig <- clean_names(orig)
+  }
+
   return(orig)
+
 }
