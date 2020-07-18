@@ -1,13 +1,13 @@
 Package: doubleheadr
 Title: turns two column names into one
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: 
     person(given = "Matt",
            family = "Roumaya",
            role = c("aut", "cre"),
            email = "matthewroumaya@gmail.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: At this time, the package only has one function which cleans up the double column names found in SurveyMonkey exports.
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
     pick a license
 Encoding: UTF-8

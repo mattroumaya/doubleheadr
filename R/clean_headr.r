@@ -9,15 +9,6 @@
 #' @return a data.frame with one less row
 #'
 #' @export
-
-
-
-.onAttach <- function(libname, pkgname) {
-  packageStartupMessage("Welcome to doubleheadr. Let's get those columns cleaned!")
-}
-
-
-
 clean_headr <- function(dat, rep_val){
 
   orig <- dat
