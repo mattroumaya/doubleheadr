@@ -17,3 +17,5 @@ RoxygenNote: 7.1.1
 Imports:
 	janitor,
 	usethis
+Depends: 
+    R (>= 2.10)

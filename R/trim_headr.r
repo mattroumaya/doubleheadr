@@ -1,4 +1,4 @@
-#' @title trim_cols
+#' @title trim_headr
 #'
 #' @description
 #' Trim column names by removing string matches or partial string matches.
@@ -10,7 +10,7 @@
 #' @return a data.frame object
 #'
 #' @export
-trim_cols <- function(dat, ...){
+trim_headr <- function(dat, ...){
   char_vec <- paste(..., collapse = "|")
   names(dat) <- gsub(char_vec, "", names(dat))
 
