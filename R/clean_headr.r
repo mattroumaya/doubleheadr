@@ -1,13 +1,13 @@
 #' @title clean_headr
 #'
 #' @description
-#' This function was made to clean SurveyMonkey's "double header", which contains column names and sub-column names found in the first row
+#' This function was made to clean SurveyMonkey's "double header", which contains column names and sub-column (first row) names.
 #'
-#' @param dat a data.frame
-#' @param rep_val repeated value as a character class. When your column names repeat, what is the repeated value. (Common cases are "X" for .csv imports or "..." for .xlsx imports)
+#' @param dat a data.frame.
+#' @param rep_val repeated value as a character class. When your column names repeat, what is the repeated value. (Common cases are "X" for .csv imports or "..." for .xlsx imports).
 #' @param clean_names values are TRUE or FALSE. Should column names be converted to snake_case?
 #'
-#' @return a data.frame with one less row
+#' @return a data.frame object.
 #'
 #' @export
 clean_headr <- function(dat, rep_val, clean_names = TRUE){

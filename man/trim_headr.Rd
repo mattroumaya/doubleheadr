@@ -7,13 +7,13 @@
 trim_headr(dat, ...)
 }
 \arguments{
-\item{dat}{a data.frame}
+\item{dat}{a data.frame.}
 
-\item{...}{a character vector of strings or partial strings to remove from column names}
+\item{...}{a character vector of values to remove from column names.}
 }
 \value{
-a data.frame object
+a data.frame object.
 }
 \description{
-Trim column names by removing string matches or partial string matches.
+Trim column names by removing string matches or partial string matches. Supply character string values to a character vector, and all matches will be removed from column names. For instance, supplying c('foo', 'bar') will remove all instances of 'foo' and/or 'bar' present in column names.
 }

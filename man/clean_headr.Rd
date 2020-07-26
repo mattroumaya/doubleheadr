@@ -7,15 +7,15 @@
 clean_headr(dat, rep_val, clean_names = TRUE)
 }
 \arguments{
-\item{dat}{a data.frame}
+\item{dat}{a data.frame.}
 
-\item{rep_val}{repeated value as a character class. When your column names repeat, what is the repeated value. (Common cases are "X" for .csv imports or "..." for .xlsx imports)}
+\item{rep_val}{repeated value as a character class. When your column names repeat, what is the repeated value. (Common cases are "X" for .csv imports or "..." for .xlsx imports).}
 
 \item{clean_names}{values are TRUE or FALSE. Should column names be converted to snake_case?}
 }
 \value{
-a data.frame with one less row
+a data.frame object.
 }
 \description{
-This function was made to clean SurveyMonkey's "double header", which contains column names and sub-column names found in the first row
+This function was made to clean SurveyMonkey's "double header", which contains column names and sub-column (first row) names.
 }
