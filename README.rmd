@@ -1,0 +1,80 @@
+---
+title: "Untitled"
+output: github_document
+---
+
+```{r setup, include = FALSE}
+library(dplyr)
+library(doubleheadr)
+library(gt)
+
+```
+
+# doubleheadr :performing_arts:
+
+[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+
+This package provides helper functions for cleaning data exports from SurveyMonkey.
+
+### The Main Issue
+
+SurveyMonkey provides response data that contains a column and a second row containing column-name data, which requires data cleaning before starting your analysis.
+
+### Why `doubleheadr`?
+
+-   Adopting `clean_headr` + `trim_headr` will (hopefully) make your workflow more efficient.
+
+-   Quick and simple approach when working with downloaded or inherited `.csv` or `.xlsx` files, or when there are too many responses to pull via API. (Another highly recommended solution for Advantage and Premier-level users is pulling data via the SurveyMonkey API with [the surveymonkey package.](https://github.com/tntp/surveymonkey))
+
+### Lifecycle
+
+This package is in the early stages of development. Any and all issues are welcome, please report them and I will be happy to troubleshoot anything that comes up.
+
+### Overview
+
+-   `clean_headr` concatenates values from column names and the first row so that it makes sense.
+
+-   `trim_headr` trims long strings from column names.
+
+-   `flag_mins` flags respondents not meeting a minimum duration in minutes to complete the survey
+
+### Install `doubleheadr`
+
+```{r}
+
+# install.packages("devtools")
+# library(devtools)
+devtools::install_github('mattroumaya/doubleheadr')
+```
+
+## Usage
+
+Your downloaded or inherited `.csv`/`.xlsx` file will look something like the demo included in `doubleheadr`:
+
+```{r}
+head(doubleheadr::demo)
+
+```
+
+##### `clean_headr`
+
+```{r}
+
+demo %>% 
+  clean_headr(., "...") 
+
+```
+
+##### trim_headr
+
+```{r}
+demo %>% 
+  clean_headr(., "...") %>% 
+  trim_headr(., c("please_provide_your_contact_information_",
+                  "i_wish_it_would_have_",
+                  "_response"))
+```
+
+##### flag_mins
+
+-   Coming to the `demo` soon...
