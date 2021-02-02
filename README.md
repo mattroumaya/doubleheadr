@@ -1,5 +1,3 @@
-Untitled
-================
 
 # doubleheadr :performing\_arts:
 
