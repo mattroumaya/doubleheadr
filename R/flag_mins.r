@@ -14,7 +14,7 @@ flag_mins <- function(dat, mins){
   
   dat <- dat %>% 
     mutate(flag_mins = round(difftime(dat$date_modified, dat$date_created, units = 'mins'),0),
-           flag_mins = ifelse(flag_mins < mins, "FLAG", NA))
+           flag_mins = ifelse(flag_mins < mins, TRUE, FALSE))
   
   if (is.numeric(mins) == FALSE){
     dat <- dat
