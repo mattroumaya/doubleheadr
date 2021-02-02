@@ -40,7 +40,7 @@ This package is in the early stages of development. Any and all issues are welco
 
 ### Install `doubleheadr`
 
-```{r}
+```{r eval=FALSE}
 
 # install.packages("devtools")
 # library(devtools)
@@ -49,30 +49,40 @@ devtools::install_github('mattroumaya/doubleheadr')
 
 ## Usage
 
-Your downloaded or inherited `.csv`/`.xlsx` file will look something like the demo included in `doubleheadr`:
+Your downloaded or inherited `.csv`/`.xlsx` file will look something like the demo included in `doubleheadr`.
+
+No worries though! Cleaning your column names is as easy as 1,2... that's it! Two steps.
+
+Start with unhelpful column names:
 
 ```{r}
-head(doubleheadr::demo)
+colnames(doubleheadr::demo)
 
 ```
 
-##### `clean_headr`
+##### `1. clean_headr`
+
+-   Now you have some really long column names
+
+-   You can make them easier to read by setting `clean_names == FALSE`
 
 ```{r}
 
 demo %>% 
-  clean_headr(., "...") 
+  clean_headr(., "...") %>% 
+  colnames(.)
 
 ```
 
-##### trim_headr
+##### 2. trim_headr
 
 ```{r}
 demo %>% 
   clean_headr(., "...") %>% 
   trim_headr(., c("please_provide_your_contact_information_",
                   "i_wish_it_would_have_",
-                  "_response"))
+                  "_response")) %>% 
+  colnames(.)
 ```
 
 ##### flag_mins
