@@ -2,4 +2,5 @@
 
 export(clean_headr)
 export(flag_mins)
+export(flag_text)
 export(trim_headr)
