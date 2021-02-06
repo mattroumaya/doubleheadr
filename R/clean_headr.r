@@ -7,13 +7,32 @@
 #' @param rep_val repeated value as a character class. When your column names repeat, what is the repeated value. (Common cases are "X" for .csv imports or "..." for .xlsx imports).
 #' @param clean_names values are TRUE or FALSE. Should column names be converted to snake_case?
 #'
-#' @return a data.frame object.
+#' @return a data.frame.
 #'
 #' @export
-clean_headr <- function(dat, rep_val, clean_names = TRUE){
+#'
+#' @example
+#' library(doubleheadr)
+#' doubleheadr::demo %>%
+#'   clean_headr(., "...")
+#'
+clean_headr <- function(dat, rep_val = NULL, clean_names = TRUE){
+
+  if (!clean_names %in% c(TRUE, FALSE)){
+    stop("\"clean_names\" accepts two values: TRUE or FALSE")
+  }
+
+  if (is.null(rep_val)){
+    stop("\"rep_val\" not specified")
+  }
+
+  if (any(grepl(rep_val, colnames(dat))) == F){
+    stop("\"rep_val\" not found in column names.")
+  }
+
+
 
   orig <- dat
-
   sv <- dat
   sv <- sv[1,]
   sv <- sv[, sapply(sv, Negate(anyNA)), drop = FALSE]
@@ -28,14 +47,10 @@ clean_headr <- function(dat, rep_val, clean_names = TRUE){
   colnames(orig)[which(colnames(orig) %in% sv$name)] <- sv$new_value
   orig <- orig[-c(1),]
 
-  if (clean_names %in% TRUE){
+  if (clean_names == TRUE){
     orig <- janitor::clean_names(orig)
   }
 
-  if (!clean_names %in% c(TRUE, FALSE)){
-    ui_warn("clean_names accepts two values: TRUE or FALSE")
-  }
-
-  return(orig)
+  orig
 
 }
