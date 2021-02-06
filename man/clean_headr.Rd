@@ -4,7 +4,7 @@
 \alias{clean_headr}
 \title{clean_headr}
 \usage{
-clean_headr(dat, rep_val, clean_names = TRUE)
+clean_headr(dat, rep_val = NULL, clean_names = TRUE)
 }
 \arguments{
 \item{dat}{a data.frame.}
@@ -14,7 +14,7 @@ clean_headr(dat, rep_val, clean_names = TRUE)
 \item{clean_names}{values are TRUE or FALSE. Should column names be converted to snake_case?}
 }
 \value{
-a data.frame object.
+a data.frame.
 }
 \description{
 This function was made to clean SurveyMonkey's "double header", which contains column names and sub-column (first row) names.
