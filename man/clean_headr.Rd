@@ -19,3 +19,8 @@ a data.frame.
 \description{
 This function was made to clean SurveyMonkey's "double header", which contains column names and sub-column (first row) names.
 }
+\examples{
+library(doubleheadr)
+doubleheadr::demo \%>\%
+  clean_headr(., "...")
+}

@@ -10,12 +10,10 @@
 #' @return a data.frame.
 #'
 #' @export
-#'
-#' @example
+#' @examples
 #' library(doubleheadr)
 #' doubleheadr::demo %>%
 #'   clean_headr(., "...")
-#'
 clean_headr <- function(dat, rep_val = NULL, clean_names = TRUE){
 
   if (!clean_names %in% c(TRUE, FALSE)){

@@ -15,4 +15,3 @@ test_that("incorrect clean_names arg is caught", {
   expect_error(clean_headr(dat, "...", clean_names = "oh yeah"))
 })
 
-
