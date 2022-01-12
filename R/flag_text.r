@@ -13,65 +13,68 @@
 #' @return a data.frame object.
 #'
 #' @export
-flag_text <- function(dat, text_vector, ignore_columns){
-
+#' @importFrom magrittr %>%
+flag_text <- function(dat, text_vector, ignore_columns) {
   text_vector <- paste(text_vector, collapse = "|")
   text_vector <- tolower(text_vector)
 
-  #Check if dat is grouped and if so, save structure and ungroup temporarily
+  # Check if dat is grouped and if so, save structure and ungroup temporarily
   is_grouped <- dplyr::is_grouped_df(dat)
 
-  if(is_grouped) {
+  if (is_grouped) {
     dat_groups <- dplyr::group_vars(dat)
     dat <- dat %>% dplyr::ungroup()
-    if(getOption("flag_text.grouped_warning",TRUE) & interactive()) {
-      message(paste0("Data is grouped by [", paste(dat_groups, collapse = "|"), "]. Note that flag_text() operates rowwise and is not group aware. It does not limit text flagging to within-groups, but rather checks over the entire data frame rowwise. However grouping structure is preserved.\nThis message is shown once per session and may be disabled by setting options(\"flag_text.grouped_warning\" = FALSE).")) #nocov
-      options("flag_text.grouped_warning" = FALSE) #nocov
+    if (getOption("flag_text.grouped_warning", TRUE) & interactive()) {
+      message(paste0("Data is grouped by [", paste(dat_groups, collapse = "|"), "]. Note that flag_text() operates rowwise and is not group aware. It does not limit text flagging to within-groups, but rather checks over the entire data frame rowwise. However grouping structure is preserved.\nThis message is shown once per session and may be disabled by setting options(\"flag_text.grouped_warning\" = FALSE).")) # nocov
+      options("flag_text.grouped_warning" = FALSE) # nocov
     }
   }
 
 
-  if(!missing(ignore_columns)){
+  if (!missing(ignore_columns)) {
     ignore_columns <- rlang::enquo(ignore_columns)
 
 
     dat <- dat %>%
-      dplyr::mutate(join = row_number())
+      dplyr::mutate(join = dplyr::row_number())
 
     rejoin <- dat %>%
-      dplyr::select(join, {{ignore_columns}})
+      dplyr::select(dplyr::join, {{ ignore_columns }})
 
 
     temp <- dat %>%
-      select(-{{ignore_columns}}) %>%
+      dplyr::select(-{{ ignore_columns }}) %>%
       dplyr::rowwise() %>%
-      dplyr::mutate(across(everything(), as.character),
-                    across(everything(), ~tolower(.)),
-                    flag_text = as.logical(+any(str_detect(c_across(everything()), paste(text_vector, collapse = "|"))))) %>%
+      dplyr::mutate(dplyr::across(dplyr::everything(), as.character),
+        dplyr::across(dplyr::everything(), ~ tolower(.)),
+        flag_text = as.logical(+any(stringr::str_detect(dplyr::c_across(dplyr::everything()), paste(text_vector, collapse = "|"))))
+      ) %>%
       dplyr::ungroup() %>%
-      dplyr::mutate(flag_text = ifelse(is.na(flag_text), FALSE, flag_text),
-                    join = dplyr::row_number()) %>%
+      dplyr::mutate(
+        flag_text = ifelse(is.na(flag_text), FALSE, flag_text),
+        join = dplyr::row_number()
+      ) %>%
       dplyr::select(join, flag_text)
 
-    temp <- left_join(temp, rejoin, by = "join")
+    temp <- dplyr::left_join(temp, rejoin, by = "join")
 
     dat <- dplyr::left_join(dat, temp) %>%
       dplyr::select(-join)
-
-
   } else {
-
     dat <- dat %>%
-      dplyr::mutate(join = row_number())
+      dplyr::mutate(join = dplyr::row_number())
 
     temp <- dat %>%
       dplyr::rowwise() %>%
-      dplyr::mutate(across(everything(), as.character),
-                    across(everything(), ~tolower(.)),
-                    flag_text = as.logical(+any(str_detect(c_across(everything()), paste(text_vector, collapse = "|"))))) %>%
+      dplyr::mutate(dplyr::across(dplyr::everything(), as.character),
+        dplyr::across(dplyr::everything(), ~ tolower(.)),
+        flag_text = as.logical(+any(stringr::str_detect(dplyr::c_across(dplyr::everything()), paste(text_vector, collapse = "|"))))
+      ) %>%
       dplyr::ungroup() %>%
-      dplyr::mutate(flag_text = ifelse(is.na(flag_text), FALSE, flag_text),
-                    join = dplyr::row_number()) %>%
+      dplyr::mutate(
+        flag_text = ifelse(is.na(flag_text), FALSE, flag_text),
+        join = dplyr::row_number()
+      ) %>%
       dplyr::select(join, flag_text)
 
     dat <- dplyr::left_join(dat, temp, by = "join") %>%
@@ -79,9 +82,8 @@ flag_text <- function(dat, text_vector, ignore_columns){
   }
 
 
-  #Reapply groups if dat was grouped
-  if(is_grouped) dat <- dat %>% dplyr::group_by(!!!rlang::syms(dat_groups))
+  # Reapply groups if dat was grouped
+  if (is_grouped) dat <- dat %>% dplyr::group_by(!!!rlang::syms(dat_groups))
 
   dat
 }
-

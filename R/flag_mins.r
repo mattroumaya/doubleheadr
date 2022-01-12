@@ -10,23 +10,22 @@
 #' @return a data.frame object.
 #'
 #' @export
-flag_mins <- function(dat, mins){
-  
-  dat <- dat %>% 
-    mutate(flag_mins = round(difftime(dat$date_modified, dat$date_created, units = 'mins'),0),
-           flag_mins = ifelse(flag_mins < mins, TRUE, FALSE))
-  
-  if (is.numeric(mins) == FALSE){
+flag_mins <- function(dat, mins) {
+  dat <- dat %>%
+    dplyr::mutate(
+      flag_mins = round(difftime(dat$date_modified, dat$date_created, units = "mins"), 0),
+      flag_mins = ifelse(flag_mins < mins, TRUE, FALSE)
+    )
+
+  if (is.numeric(mins) == FALSE) {
     dat <- dat
-    ui_warn('"mins" accepts numeric values only; All NA returned. Try using a non-negative integer.')
+    usethis::ui_warn('"mins" accepts numeric values only; All NA returned. Try using a non-negative integer.')
   }
-  
+
   if (mins < 0) {
     dat <- dat
-    ui_warn("Time travel does not yet exist (or does it?). Provide a non-negative number.")
+    usethis::ui_warn("Time travel does not yet exist (or does it?). Provide a non-negative number.")
   }
-  
-  return(dat)
-  
-}
 
+  return(dat)
+}

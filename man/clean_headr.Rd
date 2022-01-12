@@ -21,6 +21,5 @@ This function was made to clean SurveyMonkey's "double header", which contains c
 }
 \examples{
 library(doubleheadr)
-doubleheadr::demo \%>\%
-  clean_headr(., "...")
+clean_headr(doubleheadr::demo, "...")
 }

@@ -12,19 +12,17 @@
 #' @export
 #' @examples
 #' library(doubleheadr)
-#' doubleheadr::demo %>%
-#'   clean_headr(., "...")
-clean_headr <- function(dat, rep_val = NULL, clean_names = TRUE){
-
-  if (!clean_names %in% c(TRUE, FALSE)){
+#'clean_headr(doubleheadr::demo, "...")
+clean_headr <- function(dat, rep_val = NULL, clean_names = TRUE) {
+  if (!clean_names %in% c(TRUE, FALSE)) {
     stop("\"clean_names\" accepts two values: TRUE or FALSE")
   }
 
-  if (is.null(rep_val)){
+  if (is.null(rep_val)) {
     stop("\"rep_val\" not specified")
   }
 
-  if (any(grepl(rep_val, colnames(dat))) == F){
+  if (any(grepl(rep_val, colnames(dat))) == FALSE) {
     stop("\"rep_val\" not found in column names.")
   }
 
@@ -32,7 +30,7 @@ clean_headr <- function(dat, rep_val = NULL, clean_names = TRUE){
 
   orig <- dat
   sv <- dat
-  sv <- sv[1,]
+  sv <- sv[1, ]
   sv <- sv[, sapply(sv, Negate(anyNA)), drop = FALSE]
   sv <- t(sv)
   sv <- cbind(rownames(sv), data.frame(sv, row.names = NULL))
@@ -41,14 +39,12 @@ clean_headr <- function(dat, rep_val = NULL, clean_names = TRUE){
   sv$grp <- with(sv, ave(name, FUN = function(dat) cumsum(!startsWith(name, rep_val))))
   sv$new_value <- with(sv, ave(name, grp, FUN = function(dat) head(dat, 1)))
   sv$new_value <- paste0(sv$new_value, " ", sv$value)
-  new_names <- as.character(sv$new_value)
   colnames(orig)[which(colnames(orig) %in% sv$name)] <- sv$new_value
-  orig <- orig[-c(1),]
+  orig <- orig[-c(1), ]
 
-  if (clean_names == TRUE){
+  if (clean_names == TRUE) {
     orig <- janitor::clean_names(orig)
   }
 
   orig
-
 }

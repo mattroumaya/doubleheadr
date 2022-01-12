@@ -10,12 +10,11 @@
 #' @return a data.frame object.
 #'
 #' @export
-trim_headr <- function(dat, ...){
+trim_headr <- function(dat, ...) {
   char_vec <- paste(..., collapse = "|")
   names(dat) <- gsub(char_vec, "", names(dat))
 
   return(as.data.frame(dat))
-
 }
 
 
