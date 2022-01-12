@@ -9,15 +9,15 @@ library(gt)
 
 ```
 
-# doubleheadr :performing_arts:
+# doubleheadr
 
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
-This package provides helper functions for cleaning data exports from SurveyMonkey.
+This package provides helper functions for data exports from SurveyMonkey. Most useful will likely be the `clean_headr()` function, which will concatenate the column names + first row values from a SurveyMonkey data export that is `.csv` or `.xlsx`.
 
 ### The Main Issue
 
-SurveyMonkey provides response data that contains a column and a second row containing column-name data, which requires data cleaning before starting your analysis.
+Exported SurveyMonkey data contains a column and a second row containing column-name data, which typically requires data cleaning before starting analysis.
 
 ### Why `doubleheadr`?
 
@@ -35,14 +35,13 @@ This package is in the early stages of development. Any and all issues are welco
 
 -   `trim_headr` trims long strings from column names.
 
--   `flag_mins` flags respondents not meeting a minimum duration in minutes to complete the survey
+-   `flag_mins` flags respondents not meeting a minimum duration in minutes to complete the survey.
+
+-   `flag_text` flags rows where a certain string value is found. This can be used to look for keywords, PII, or depending on your audience, profanity and other vulgarities.
 
 ### Install `doubleheadr`
 
 ```{r eval=FALSE}
-
-# install.packages("devtools")
-# library(devtools)
 devtools::install_github('mattroumaya/doubleheadr')
 ```
 
@@ -56,10 +55,9 @@ Start with unhelpful column names:
 
 ```{r}
 colnames(doubleheadr::demo)
-
 ```
 
-##### `1. clean_headr`
+##### `1. clean_headr()`
 
 -   Now you have some really long column names
 
@@ -73,7 +71,7 @@ demo %>%
 
 ```
 
-##### 2. trim_headr
+##### 2. trim_headr()
 
 ```{r}
 demo %>% 
@@ -84,6 +82,6 @@ demo %>%
   colnames(.)
 ```
 
-##### flag_mins
+##### flag_mins()
 
 -   Coming to the `demo` soon...
