@@ -14,6 +14,7 @@
 #'
 #' @export
 #' @importFrom magrittr %>%
+#' @import dplyr rlang stringr
 flag_text <- function(dat, text_vector, ignore_columns) {
   text_vector <- paste(text_vector, collapse = "|")
   text_vector <- tolower(text_vector)
